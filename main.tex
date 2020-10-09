@@ -1,4 +1,4 @@
-\documentclass[oneside,article,french]{memoir}
+\documentclass[oneside,french]{memoir}
 \usepackage{xcolor}
 \usepackage{biblatex}
 \addbibresource{refs.bib}
@@ -17,17 +17,38 @@
 
 \usepackage[osfI]{garamondx} 
 \usepackage[varqu,varl]{zi4}
-\usepackage[sf]{libertine}
 \usepackage[garamondx,cmbraces]{newtxmath}
 
-\setlength\cftsectionindent{0pt}
+\setlength\cftsectionindent{10pt}
 \setlength\cftsubsectionindent{10pt}
 \setlength\cftsectionnumwidth{2em}
 \setlength\cftsubsectionnumwidth{2em}
 
 \newtheorem{theorem}[node]{Theorem}
 
-\setlength{\DieudonneNodeIndent}{0pt}
+\pretitle{\begin{center}\Huge\bfseries}
+\posttitle{\par\end{center}\vskip 0.5em}
+\predate{\begin{center}\large}
+\postdate{\par\end{center}}
+
+
+
+\renewcommand{\chaptername}{\normalfont\textsc{chapitre}}
+\renewcommand{\chapnumfont}{\normalfont}
+
+\RenewDocumentCommand\chapnamefont{}{\centering\LARGE\scshape\MakeLowercase}
+\RenewDocumentCommand\chapnumfont{}{\centering\LARGE\scshape}
+\RenewDocumentCommand\chaptitlefont{}{\centering\LARGE\bfseries}
+\RenewDocumentCommand\printchaptertitle{m}{\chaptitlefont\MakeUppercase{#1}}
+
+\setsecnumdepth{subsubsection}
+\setsecnumformat{\csname jms#1\endcsname}
+\NewDocumentCommand\jmssection{}{\S~\thesection.\ \ }
+\NewDocumentCommand\jmssubsection{}{\thesubsection.\ \ }
+\NewDocumentCommand\jmssubsubsection{}{\thesubsubsection.\ \ }
+\setsecheadstyle{\centering\normalsize\bfseries\MakeUppercase}
+\setsubsecheadstyle{\noindent\normalfont\bfseries}
+
 
 \title{The \emph{Dieudonn\'e} \LaTeX{} package}
 \author{Jonathan Sterling}
@@ -39,8 +60,11 @@
 
 \tableofcontents*
 
-\clearpage
+\mainmatter
+\CounterZeroNext{chapter}
+\chapter{Pr\'eliminaires}
 
+\setcounter{secnumdepth}{30}
 
 \section{Anneaux de Fractions}
 
