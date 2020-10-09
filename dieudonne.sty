@@ -1,0 +1,115 @@
+\RequirePackage{xparse}
+\RequirePackage{chngcntr}
+\RequirePackage{amsmath}
+\RequirePackage{etoolbox}
+\RequirePackage{microtype}
+
+\newcounter{node}
+
+% all counters should be reset when an ancestor is stepped
+\counterwithin*{subparagraph}{chapter}
+\counterwithin*{subparagraph}{section}
+\counterwithin*{subparagraph}{subsection}
+\counterwithin*{subparagraph}{subsubsection}
+\counterwithin*{paragraph}{chapter}
+\counterwithin*{paragraph}{section}
+\counterwithin*{paragraph}{subsection}
+\counterwithin*{subsubsection}{chapter}
+\counterwithin*{subsubsection}{section}
+\counterwithin*{subsection}{chapter}
+\counterwithin*{section}{chapter}
+
+\counterwithin*{equation}{section}
+\counterwithin*{equation}{subsection}
+\counterwithin*{equation}{subsubsection}
+\counterwithin*{equation}{paragraph}
+\counterwithin*{equation}{node}
+
+\newcounter{dieudonne_chapter_zero}[dieudonne_chapter_zero]
+\newcounter{dieudonne_section_zero}[dieudonne_section_zero]
+\newcounter{dieudonne_subsection_zero}[dieudonne_subsection_zero]
+\newcounter{dieudonne_subsubsection_zero}[dieudonne_subsubsection_zero]
+\newcounter{dieudonne_paragraph_zero}[dieudonne_paragraph_zero]
+\newcounter{dieudonne_node_zero}[dieudonne_node_zero]
+\newcounter{dieudonne_equation_zero}[dieudonne_equation_zero]
+ 
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{4}
+
+
+\ExplSyntaxOn
+
+\cs_new:Npn \dieudonne_fmt_num:nn #1 #2 {
+  \if_int_compare:w \value{#2}=0 
+     \if_int_compare:w \value{dieudonne_#2_zero}=1
+       #1{0}
+     \fi
+  \else 
+    #1\arabic{#2}
+  \fi
+}
+
+% Formatting for numbers that will appear in the table of contents
+\cs_new:Npn \dieudonne_fmt_num_toc:n #1 {
+  \dieudonne_fmt_num:nn {.} {#1}
+}
+
+% Formatting for numbers that will not appear in the table of contents
+\cs_new:Npn \dieudonne_fmt_num_notoc:n #1 {
+  \dieudonne_fmt_num:nn {\textperiodcentered} {#1}
+}
+
+
+\NewDocumentCommand\CounterZeroNext{m}{
+  \setcounter{#1}{-1}
+  \setcounter{dieudonne_#1_zero}{1}
+}
+
+\DeclareExpandableDocumentCommand\thesection{}{%
+  \arabic{section}%
+}
+
+\DeclareExpandableDocumentCommand\thesubsection{}{
+  \thesection
+  \dieudonne_fmt_num_toc:n {subsection}
+}
+
+\DeclareExpandableDocumentCommand\thesubsubsection{}{
+  \thesubsection
+  \dieudonne_fmt_num_toc:n {subsubsection}
+}%
+
+\DeclareExpandableDocumentCommand\theparagraph{}{
+  \thesubsubsection
+  \dieudonne_fmt_num_toc:n {paragraph}
+}
+
+
+\DeclareExpandableDocumentCommand\thenode{}{
+  \theparagraph
+  \dieudonne_fmt_num_notoc:n {node}
+}
+
+\DeclareExpandableDocumentCommand\theequation{}{
+  \thenode
+  \dieudonne_fmt_num_notoc:n {equation}
+}
+
+
+\NewDocumentEnvironment{node}{}{
+  \par\addvspace{.5\baselineskip}
+  \refstepcounter{node}
+  \noindent
+  \textbf{(\thenode)}\hspace{.3em}
+}{
+  \par\addvspace{.5\baselineskip}
+}
+
+
+\ExplSyntaxOff
+
+
+\patchcmd{\@xsect}{
+  \vskip\@tempskipa\vskip-\parskip}{\addvspace{\@tempskipa}\addvspace{-\parskip}
+}{}{\typeout{WARNING! Patching \noexpand\@xsect failed!}}
+
