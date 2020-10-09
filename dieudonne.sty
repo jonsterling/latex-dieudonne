@@ -39,6 +39,18 @@
 
 \ExplSyntaxOn
 
+%% Customizable
+
+\NewDocumentCommand\DieudonneInterpunct{}{
+  \textperiodcentered
+}
+
+\NewDocumentCommand\DieudonneFormatTrail{m}{
+  #1
+}
+
+
+
 \cs_new:Npn \dieudonne_fmt_num:nn #1 #2 {
   \if_int_compare:w \value{#2}=0 
      \if_int_compare:w \value{dieudonne_#2_zero}=1
@@ -56,7 +68,7 @@
 
 % Formatting for numbers that will not appear in the table of contents
 \cs_new:Npn \dieudonne_fmt_num_notoc:n #1 {
-  \dieudonne_fmt_num:nn {\textperiodcentered} {#1}
+  \DieudonneFormatTrail{\dieudonne_fmt_num:nn {\DieudonneInterpunct} {#1}}
 }
 
 
@@ -109,6 +121,7 @@
 \ExplSyntaxOff
 
 
+%% A patch to fix some problems with whitespace when an environment abuts a section heading.
 \patchcmd{\@xsect}{
   \vskip\@tempskipa\vskip-\parskip}{\addvspace{\@tempskipa}\addvspace{-\parskip}
 }{}{\typeout{WARNING! Patching \noexpand\@xsect failed!}}
