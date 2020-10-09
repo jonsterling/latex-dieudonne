@@ -41,6 +41,9 @@
 
 %% Customizable
 
+\newlength\DieudonneNodeIndent
+\setlength\DieudonneNodeIndent{\parindent}
+
 \NewDocumentCommand\DieudonneInterpunct{}{
   \textperiodcentered
 }
@@ -112,7 +115,7 @@
   \par\addvspace{.5\baselineskip}
   \refstepcounter{node}
   \noindent
-  \textbf{(\thenode)}\hspace{.3em}
+  \hspace{\DieudonneNodeIndent}\textbf{(\thenode)}\hspace{.3em}
 }{
   \par\addvspace{.5\baselineskip}
 }
