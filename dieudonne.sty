@@ -1,29 +1,74 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{dieudonne}[2020/10/08 Dieudonne]
+
+\DeclareOption{memoir}{
+  %% A patch to fix some problems with whitespace when an environment abuts a section heading.
+  \patchcmd{\@xsect}{
+    \vskip\@tempskipa\vskip-\parskip}{\addvspace{\@tempskipa}\addvspace{-\parskip}
+  }{}{\typeout{WARNING! Patching \noexpand\@xsect failed!}}
+}
+
+\ProcessOptions\relax
+
+
 \RequirePackage{xparse}
 \RequirePackage{chngcntr}
 \RequirePackage{amsmath}
 \RequirePackage{etoolbox}
 \RequirePackage{microtype}
 
+
+\ExplSyntaxOn
+
 \newcounter{node}
 
-% all counters should be reset when an ancestor is stepped
-\counterwithin*{subparagraph}{chapter}
-\counterwithin*{subparagraph}{section}
-\counterwithin*{subparagraph}{subsection}
-\counterwithin*{subparagraph}{subsubsection}
-\counterwithin*{paragraph}{chapter}
-\counterwithin*{paragraph}{section}
-\counterwithin*{paragraph}{subsection}
-\counterwithin*{subsubsection}{chapter}
-\counterwithin*{subsubsection}{section}
-\counterwithin*{subsection}{chapter}
-\counterwithin*{section}{chapter}
+\cs_new:Npn \dieudonne_if_counter_exist:nT #1 #2 {
+  \cs_if_exist:cTF {c@#1} {#2} {}
+}
 
-\counterwithin*{equation}{section}
-\counterwithin*{equation}{subsection}
-\counterwithin*{equation}{subsubsection}
-\counterwithin*{equation}{paragraph}
-\counterwithin*{equation}{node}
+\cs_new:Npn \dieudonne_counter_within:nn #1 #2 {
+  \dieudonne_if_counter_exist:nT {#1} {
+    \dieudonne_if_counter_exist:nT {#2} {
+      \counterwithin*{#1}{#2}
+    }
+  }
+}
+
+% all counters should be reset when an ancestor is stepped
+
+\dieudonne_counter_within:nn{node}{chapter}
+\dieudonne_counter_within:nn{node}{section}
+\dieudonne_counter_within:nn{node}{subsection}
+\dieudonne_counter_within:nn{node}{subsubsection}
+\dieudonne_counter_within:nn{node}{paragraph}
+\dieudonne_counter_within:nn{node}{subparagraph}
+
+\dieudonne_counter_within:nn{subparagraph}{chapter}
+\dieudonne_counter_within:nn{subparagraph}{section}
+\dieudonne_counter_within:nn{subparagraph}{subsection}
+\dieudonne_counter_within:nn{subparagraph}{subsubsection}
+\dieudonne_counter_within:nn{subparagraph}{paragraph}
+
+\dieudonne_counter_within:nn{paragraph}{chapter}
+\dieudonne_counter_within:nn{paragraph}{section}
+\dieudonne_counter_within:nn{paragraph}{subsection}
+\dieudonne_counter_within:nn{paragraph}{subsubsection}
+
+\dieudonne_counter_within:nn{subsubsection}{chapter}
+\dieudonne_counter_within:nn{subsubsection}{section}
+\dieudonne_counter_within:nn{subsubsection}{subsection}
+
+\dieudonne_counter_within:nn{subsection}{chapter}
+\dieudonne_counter_within:nn{subsection}{section}
+
+\dieudonne_counter_within:nn{section}{chapter}
+
+\dieudonne_counter_within:nn{equation}{chapter}
+\dieudonne_counter_within:nn{equation}{section}
+\dieudonne_counter_within:nn{equation}{subsection}
+\dieudonne_counter_within:nn{equation}{subsubsection}
+\dieudonne_counter_within:nn{equation}{paragraph}
+\dieudonne_counter_within:nn{equation}{node}
 
 \newcounter{dieudonne_chapter_zero}[dieudonne_chapter_zero]
 \newcounter{dieudonne_section_zero}[dieudonne_section_zero]
@@ -33,11 +78,9 @@
 \newcounter{dieudonne_node_zero}[dieudonne_node_zero]
 \newcounter{dieudonne_equation_zero}[dieudonne_equation_zero]
  
-\setcounter{tocdepth}{3}
-\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{30}
+\setcounter{secnumdepth}{30}
 
-
-\ExplSyntaxOn
 
 %% Customizable
 
@@ -99,9 +142,14 @@
   \dieudonne_fmt_num_toc:n {paragraph}
 }
 
+\DeclareExpandableDocumentCommand\thesubparagraph{}{
+  \theparagraph
+  \dieudonne_fmt_num_toc:n {paragraph}
+}
+
 
 \DeclareExpandableDocumentCommand\thenode{}{
-  \theparagraph
+  \thesubparagraph
   \dieudonne_fmt_num_notoc:n {node}
 }
 
@@ -122,10 +170,4 @@
 
 
 \ExplSyntaxOff
-
-
-%% A patch to fix some problems with whitespace when an environment abuts a section heading.
-\patchcmd{\@xsect}{
-  \vskip\@tempskipa\vskip-\parskip}{\addvspace{\@tempskipa}\addvspace{-\parskip}
-}{}{\typeout{WARNING! Patching \noexpand\@xsect failed!}}
 
