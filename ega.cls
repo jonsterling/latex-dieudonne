@@ -36,7 +36,7 @@
 \postdate{\par\end{center}}
 
 
-\RenewDocumentCommand\chaptername{}{\normalfont\textsc{chapitre}}
+\RenewDocumentCommand\chaptername{}{\normalfont\textsc{chapter}}
 \RenewDocumentCommand\chapnumfont{}{\normalfont}
 \RenewDocumentCommand\chapnamefont{}{\centering\LARGE\scshape\MakeLowercase}
 \RenewDocumentCommand\chapnumfont{}{\centering\LARGE\scshape}
