@@ -20,12 +20,29 @@
 
 \ExplSyntaxOn
 
+%% Customizable
+
+\newlength\DieudonneNodeIndent
+\setlength\DieudonneNodeIndent{\parindent}
+
+\NewDocumentCommand\DieudonneInterpunct{}{
+  \textperiodcentered
+}
+
+\NewDocumentCommand\DieudonneFormatTrail{m}{
+  #1
+}
+
+
+
 \newcounter{node}
 
 \cs_new:Npn \dieudonne_if_counter_exist:nT #1 #2 {
   \cs_if_exist:cTF {c@#1} {#2} {}
 }
 
+% To set the counter resets safely in case Dieudonne is used in a class
+% where these don't exist.
 \cs_new:Npn \dieudonne_counter_within:nn #1 #2 {
   \dieudonne_if_counter_exist:nT {#1} {
     \dieudonne_if_counter_exist:nT {#2} {
@@ -70,6 +87,13 @@
 \dieudonne_counter_within:nn{equation}{paragraph}
 \dieudonne_counter_within:nn{equation}{node}
 
+%% To support "Chapter 0" or "Section 0": in these case we really want to print the 0's,
+%% as opposed to the case where there _is_ no first section/chapter/etc.
+\NewDocumentCommand\CounterZeroNext{m}{
+  \setcounter{#1}{-1}
+  \setcounter{dieudonne_#1_zero}{1}
+}
+
 \newcounter{dieudonne_chapter_zero}[dieudonne_chapter_zero]
 \newcounter{dieudonne_section_zero}[dieudonne_section_zero]
 \newcounter{dieudonne_subsection_zero}[dieudonne_subsection_zero]
@@ -81,19 +105,6 @@
 \setcounter{tocdepth}{30}
 \setcounter{secnumdepth}{30}
 
-
-%% Customizable
-
-\newlength\DieudonneNodeIndent
-\setlength\DieudonneNodeIndent{\parindent}
-
-\NewDocumentCommand\DieudonneInterpunct{}{
-  \textperiodcentered
-}
-
-\NewDocumentCommand\DieudonneFormatTrail{m}{
-  #1
-}
 
 
 
@@ -117,11 +128,6 @@
   \DieudonneFormatTrail{\dieudonne_fmt_num:nn {\DieudonneInterpunct} {#1}}
 }
 
-
-\NewDocumentCommand\CounterZeroNext{m}{
-  \setcounter{#1}{-1}
-  \setcounter{dieudonne_#1_zero}{1}
-}
 
 \DeclareExpandableDocumentCommand\thesection{}{%
   \arabic{section}%
