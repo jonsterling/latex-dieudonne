@@ -1,4 +1,11 @@
 \documentclass[oneside,10pt,french]{memoir}
+
+%% Patching messed up memoir
+\renewcommand\AtEndPackage[2]{\def\temp{\AddToHook{package/after/#1}{#2}}\temp}
+
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref}
 \usepackage{multicol}
 \usepackage{xcolor}
 \usepackage{biblatex}
@@ -114,14 +121,12 @@
 
 
 
-
-
 \textcolor{gray}{[omitted]}
 
 \setcounter{subsection}{2}
 \subsection{Propri\'et\'es fonctorielles}
 
-\begin{node}
+\begin{node}\label{node:foo}
   %
   Soient $M, N$ deux $A$-modules, $u$ un $A$-homomorphism $M\to N$. Si $S$ est
   une partie multiplicative de $A$, on d\'efinit un $S^{-1}A$-homorphisme
@@ -149,10 +154,13 @@
   m\^eme de $S^{-1}u$; si $N$ et $P$ sont deux sou-modules de $M$, $S^{-1}N$ et
   $S^{-1}P$ s'identifient canoniquement \`a des sous-modules de $S^{-1}$, et
   l'on a
-  \begin{equation}
+  \begin{equation}\label{eq:foo}
     S^{-1}(N+P) = S^{-1}N+S^{-1}P\quad\text{et}\quad S^{-1}(N\cap P) = (S^{-1}N)\cap(S^{-1}P).
   \end{equation}
+\end{node}
 
+\begin{node}
+  Testing refs: \cref{node:foo} and \cref{eq:foo}
 \end{node}
 
 \nocite{*}
