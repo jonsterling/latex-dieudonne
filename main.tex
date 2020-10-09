@@ -1,63 +1,13 @@
-\documentclass[oneside,10pt,french]{memoir}
+\documentclass[french]{ega}
 
-%% Patching messed up memoir
-\renewcommand\AtEndPackage[2]{\def\temp{\AddToHook{package/after/#1}{#2}}\temp}
-
-\usepackage{amsmath}
-\usepackage{hyperref}
-\usepackage[capitalize]{cleveref}
 \usepackage{multicol}
 \usepackage{xcolor}
 \usepackage{biblatex}
-\addbibresource{refs.bib}
-
-\linespread{1.1}\selectfont
-
-\usepackage{amsthm}
-
-\setlrmarginsandblock{1.33in}{*}{1}
-\setulmarginsandblock{1.4in}{*}{1}
-\setheaderspaces{*}{2\onelineskip}{*}
-\checkandfixthelayout
-
 \usepackage[memoir]{dieudonne}
-
-\usepackage[full]{textcomp}
-\usepackage{frenchmath}
-
-\usepackage[osfI]{garamondx} 
-\usepackage[varqu,varl]{zi4}
-\usepackage[garamondx,cmbraces]{newtxmath}
-
-\setlength\cftsectionindent{10pt}
-\setlength\cftsubsectionindent{10pt}
-\setlength\cftsectionnumwidth{2em}
-\setlength\cftsubsectionnumwidth{2em}
 
 \newtheorem{theorem}[node]{Theorem}
 
-\pretitle{\begin{center}\Huge\bfseries}
-\posttitle{\par\end{center}\vskip 0.5em}
-\predate{\begin{center}\large}
-\postdate{\par\end{center}}
-
-
-
-\renewcommand{\chaptername}{\normalfont\textsc{chapitre}}
-\renewcommand{\chapnumfont}{\normalfont}
-
-\RenewDocumentCommand\chapnamefont{}{\centering\LARGE\scshape\MakeLowercase}
-\RenewDocumentCommand\chapnumfont{}{\centering\LARGE\scshape}
-\RenewDocumentCommand\chaptitlefont{}{\centering\LARGE\bfseries}
-\RenewDocumentCommand\printchaptertitle{m}{\chaptitlefont\MakeUppercase{#1}}
-
-\setsecnumdepth{subsubsection}
-\setsecnumformat{\csname jms#1\endcsname}
-\NewDocumentCommand\jmssection{}{\S~\thesection.\ \ }
-\NewDocumentCommand\jmssubsection{}{\thesubsection.\ \ }
-\NewDocumentCommand\jmssubsubsection{}{\thesubsubsection.\ \ }
-\setsecheadstyle{\centering\normalsize\bfseries\MakeUppercase}
-\setsubsecheadstyle{\noindent\normalfont\bfseries}
+\addbibresource{refs.bib}
 
 
 \title{The \emph{Dieudonn\'e} \LaTeX{} package}
@@ -73,8 +23,6 @@
 \mainmatter
 \CounterZeroNext{chapter}
 \chapter{Pr\'eliminaires}
-
-\setcounter{secnumdepth}{30}
 
 \section{Anneaux de Fractions}
 
