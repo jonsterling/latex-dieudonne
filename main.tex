@@ -1,4 +1,5 @@
 \documentclass[oneside,10pt,french]{memoir}
+\usepackage{multicol}
 \usepackage{xcolor}
 \usepackage{biblatex}
 \addbibresource{refs.bib}
@@ -73,21 +74,46 @@
 \CounterZeroNext{subsection}
 \subsection{Anneaux et alg\`ebres}
 
-\begin{node}
-  %
-  Tout les anneaux consid\'er\'e dans ce Trait\'e poss\'ederon un
-  \emph{\'el\'ement unit\'e}; tout le modules sur un tel anneau seront
-  suppos\'es \emph{unitaires}; le homomorphismes d'anneaux seront toujours
-  suppos\'es \emph{transformer l'\'el\'ement unit\'e en \'el\'ement unit\'e};
-  sauf mention expresse du contraire, un sous-anneau d'un anneau $A$ sera
-  suppos\'e \emph{contenir l'\'el\'ement unit\'e de $A$}. Nous consid\'ererons
-  surtout des anneaux \emph{commutatifs}, et lorsque nou parlerons  d'anneau
-  san pr\'eciser, il sera sous-entendu qu'il s'agit d'un anneau commtatif. Si
-  $A$ est un anneau non n\'ecessairement commutatif, par $A$-module nous
-  entendron toujours un module \emph{\`a gauche}, sauc mention expresse du
-  contraire.
-  %
-\end{node}
+\begin{minipage}[t]{0.5\textwidth}
+  \begin{node}
+    %
+    Tout les anneaux consid\'er\'e dans ce Trait\'e poss\'ederon un
+    \emph{\'el\'ement unit\'e}; tout le modules sur un tel anneau seront
+    suppos\'es \emph{unitaires}; le homomorphismes d'anneaux seront toujours
+    suppos\'es \emph{transformer l'\'el\'ement unit\'e en \'el\'ement unit\'e};
+    sauf mention expresse du contraire, un sous-anneau d'un anneau $A$ sera
+    suppos\'e \emph{contenir l'\'el\'ement unit\'e de $A$}. Nous consid\'ererons
+    surtout des anneaux \emph{commutatifs}, et lorsque nou parlerons  d'anneau
+    san pr\'eciser, il sera sous-entendu qu'il s'agit d'un anneau commutatif. Si
+    $A$ est un anneau non n\'ecessairement commutatif, par $A$-module nous
+    entendron toujours un module \emph{\`a gauche}, sauf mention expresse du
+    contraire.
+    %
+  \end{node}
+\end{minipage}
+\quad
+\begin{minipage}[t]{0.5\textwidth}
+  \addtocounter{node}{-1}
+  
+  \begin{node}
+    %
+    All the rings considered in this treatise posseses a \emph{unit element};
+    all the modules on such a ring are assumed to be unitary; the homomorphisms
+    of rings will be assumed \emph{take the unit element to the unit element};
+    unless specifically mentioned to the countrary, a subring of a ring $A$
+    will be assumed to \emph{containe the unit element of $A$}. We consider
+    mostly \emph{commutative} rings, and when we speak of a ring without
+    specifying, it will be implied that  it is a commutative ring. If $A$ is a
+    not necessarily commutative ring, by $A$-module we always mean a
+    \emph{left} module, unless mentioned specifically to the contrary.
+    %
+  \end{node}
+
+\end{minipage}
+\medskip
+
+
+
 
 
 \textcolor{gray}{[omitted]}
