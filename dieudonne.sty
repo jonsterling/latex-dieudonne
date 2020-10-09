@@ -52,40 +52,20 @@
 }
 
 % all counters should be reset when an ancestor is stepped
+\group_begin:
+  \seq_set_split:Nnn \l_tmpa_seq {,} {chapter,section,subsection,subsubsection,paragraph,subparagraph,node,equation}
 
-\dieudonne_counter_within:nn{node}{chapter}
-\dieudonne_counter_within:nn{node}{section}
-\dieudonne_counter_within:nn{node}{subsection}
-\dieudonne_counter_within:nn{node}{subsubsection}
-\dieudonne_counter_within:nn{node}{paragraph}
-\dieudonne_counter_within:nn{node}{subparagraph}
+  \int_set:Nn \l_tmpa_int {\seq_count:N \l_tmpa_seq}
+  \int_do_until:nn {\l_tmpa_int = 0} {
+    \int_decr:N \l_tmpa_int
+    \seq_pop_right:NN \l_tmpa_seq \l_tmpa_tl
+    \seq_map_inline:Nn \l_tmpa_seq {
+      \dieudonne_counter_within:nn {\l_tmpa_tl} {#1}
+    }
+  }
+\group_end:
 
-\dieudonne_counter_within:nn{subparagraph}{chapter}
-\dieudonne_counter_within:nn{subparagraph}{section}
-\dieudonne_counter_within:nn{subparagraph}{subsection}
-\dieudonne_counter_within:nn{subparagraph}{subsubsection}
-\dieudonne_counter_within:nn{subparagraph}{paragraph}
 
-\dieudonne_counter_within:nn{paragraph}{chapter}
-\dieudonne_counter_within:nn{paragraph}{section}
-\dieudonne_counter_within:nn{paragraph}{subsection}
-\dieudonne_counter_within:nn{paragraph}{subsubsection}
-
-\dieudonne_counter_within:nn{subsubsection}{chapter}
-\dieudonne_counter_within:nn{subsubsection}{section}
-\dieudonne_counter_within:nn{subsubsection}{subsection}
-
-\dieudonne_counter_within:nn{subsection}{chapter}
-\dieudonne_counter_within:nn{subsection}{section}
-
-\dieudonne_counter_within:nn{section}{chapter}
-
-\dieudonne_counter_within:nn{equation}{chapter}
-\dieudonne_counter_within:nn{equation}{section}
-\dieudonne_counter_within:nn{equation}{subsection}
-\dieudonne_counter_within:nn{equation}{subsubsection}
-\dieudonne_counter_within:nn{equation}{paragraph}
-\dieudonne_counter_within:nn{equation}{node}
 
 %% To support "Chapter 0" or "Section 0": in these case we really want to print the 0's,
 %% as opposed to the case where there _is_ no first section/chapter/etc.
