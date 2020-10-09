@@ -41,6 +41,10 @@
   \cs_if_exist:cTF {c@#1} {#2} {}
 }
 
+\cs_new:Npn \dieudonne_if_counter_exist:nF #1 #2 {
+  \cs_if_exist:cTF {c@#1} {} {#2}
+}
+
 % To set the counter resets safely in case Dieudonne is used in a class
 % where these don't exist.
 \cs_new:Npn \dieudonne_counter_within:nn #1 #2 {
@@ -51,13 +55,19 @@
   }
 }
 
-\cs_new:Npn \dieudonne_setup_counter_resets:n #1 {
+\cs_new:Npn \dieudonne_setup_counters:n #1 {
   \seq_set_split:Nnn \l_tmpa_seq {,} {#1}
 
   \int_set:Nn \l_tmpa_int {\seq_count:N \l_tmpa_seq}
   \int_do_until:nn {\l_tmpa_int = 0} {
     \int_decr:N \l_tmpa_int
     \seq_pop_right:NN \l_tmpa_seq \l_tmpa_tl
+
+    \tl_set:Nn \l_tmpb_tl {dieudonne_ \l_tmpa_tl _zero}
+    \dieudonne_if_counter_exist:nF {\l_tmpb_tl} {
+      \newcounter{\l_tmpb_tl}[\l_tmpb_tl]
+    }
+
     \seq_map_inline:Nn \l_tmpa_seq {
       \dieudonne_counter_within:nn {\l_tmpa_tl} {##1}
     }
@@ -65,7 +75,7 @@
 }
 
 % all counters should be reset when an ancestor is stepped
-\dieudonne_setup_counter_resets:n {chapter,section,subsection,subsubsection,paragraph,subparagraph,node,equation}
+\dieudonne_setup_counters:n {chapter,section,subsection,subsubsection,paragraph,subparagraph,node,equation}
 
 
 %% To support "Chapter 0" or "Section 0": in these case we really want to print the 0's,
@@ -74,14 +84,6 @@
   \setcounter{#1}{-1}
   \setcounter{dieudonne_#1_zero}{1}
 }
-
-\newcounter{dieudonne_chapter_zero}[dieudonne_chapter_zero]
-\newcounter{dieudonne_section_zero}[dieudonne_section_zero]
-\newcounter{dieudonne_subsection_zero}[dieudonne_subsection_zero]
-\newcounter{dieudonne_subsubsection_zero}[dieudonne_subsubsection_zero]
-\newcounter{dieudonne_paragraph_zero}[dieudonne_paragraph_zero]
-\newcounter{dieudonne_node_zero}[dieudonne_node_zero]
-\newcounter{dieudonne_equation_zero}[dieudonne_equation_zero]
  
 \setcounter{tocdepth}{30}
 \setcounter{secnumdepth}{30}
