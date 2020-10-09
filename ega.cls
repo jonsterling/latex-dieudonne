@@ -2,6 +2,7 @@
 
 \ExplSyntaxOn
 
+\RequirePackage{microtype}
 \RequirePackage{etoolbox}
 
 %% Patching messed up memoir
@@ -27,9 +28,10 @@
 \RequirePackage{amsthm}
 \RequirePackage[full]{textcomp}
 \RequirePackage{frenchmath}
-\RequirePackage[osfI]{garamondx} 
 \RequirePackage[varqu,varl]{zi4}
-\RequirePackage[garamondx,cmbraces]{newtxmath}
+\RequirePackage[osfI]{garamondx}
+\RequirePackage[garamondx,scaled=.98]{newtxmath}
+
 
 \linespread{1.1}\selectfont
 \pretitle{\begin{center}\Huge\bfseries}
