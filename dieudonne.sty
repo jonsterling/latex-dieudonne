@@ -1,15 +1,21 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
 \ProvidesPackage{dieudonne}[2020/10/08 Dieudonne]
-
-\ProcessOptions\relax
-
-
 \RequirePackage{xparse}
 \RequirePackage{chngcntr}
 \RequirePackage{etoolbox}
 
-
 \ExplSyntaxOn
+
+\bool_new:N \dieudonne_include_chapter
+\bool_set_false:N \dieudonne_include_chapter
+
+\DeclareOption{chapters}{
+  \bool_set_true:N \dieudonne_include_chapter
+}
+
+\ProcessOptions\relax
+
+
 
 %% Customizable
 
@@ -28,7 +34,24 @@
 \newcounter{node}
 
 \cs_if_exist:cTF {crefformat} {
-  \crefformat{node}{\textbf{(#2#1#3)}}
+  \crefformat{node}{
+    \textbf{(#2#1#3)}
+  }
+
+  \crefmultiformat{node}{
+    \textbf{(#2#1#3)}
+  }{
+    ~and~\textbf{(#2#1#3)}
+  }{
+    ,~\textbf{(#2#1#3)}
+  }{
+    ~and~\textbf{(#2#1#3)}
+  }
+  \crefrangeformat{node}{
+    \textbf{(#3#1#4)}
+    ~through
+    ~\textbf{(#5#2#6)}
+  }
   \crefname{node}{}{}
 } {}
 
@@ -106,9 +129,13 @@
   \DieudonneFormatTrail{\dieudonne_fmt_num:nn {\DieudonneInterpunct} {#1}}
 }
 
-
 \DeclareExpandableDocumentCommand\thesection{}{
-  \arabic{section}%
+  \bool_if:NTF \dieudonne_include_chapter {
+    \thechapter
+    \dieudonne_fmt_num_toc:n {section}
+  } {
+    \arabic{section}%
+  }
 }
 
 \DeclareExpandableDocumentCommand\thesubsection{}{

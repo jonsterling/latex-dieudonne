@@ -21,7 +21,7 @@
 \setlength\cftsectionindent{10pt}
 \setlength\cftsubsectionindent{10pt}
 \setlength\cftsectionnumwidth{2em}
-\setlength\cftsubsectionnumwidth{2em}
+\setlength\cftsubsectionnumwidth{3em}
 
 \RequirePackage{amsthm}
 \RequirePackage[full]{textcomp}
