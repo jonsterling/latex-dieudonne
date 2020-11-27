@@ -2,11 +2,9 @@
 
 \ExplSyntaxOn
 
+\RequirePackage{xparse}
 \RequirePackage{microtype}
 \RequirePackage{etoolbox}
-
-%% Patching messed up memoir
-\renewcommand\AtEndPackage[2]{\def\temp{\AddToHook{package/after/#1}{#2}}\temp}
 
 \RequirePackage{amsmath}
 \RequirePackage{hyperref}
@@ -77,6 +75,5 @@
 \__ega_append_period:c {subsubsection}
 \__ega_append_period:c {paragraph}
 \__ega_append_period:c {subparagraph}
- 
+
 \ExplSyntaxOff
- 

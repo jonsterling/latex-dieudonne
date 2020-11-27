@@ -1,13 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
 \ProvidesPackage{dieudonne}[2020/10/08 Dieudonne]
 
-\DeclareOption{memoir}{
-  %% A patch to fix some problems with whitespace when an environment abuts a section heading.
-  \patchcmd{\@xsect}{
-    \vskip\@tempskipa\vskip-\parskip}{\addvspace{\@tempskipa}\addvspace{-\parskip}
-  }{}{\typeout{WARNING! Patching \noexpand\@xsect failed!}}
-}
-
 \ProcessOptions\relax
 
 
@@ -151,7 +144,6 @@
 
 
 \NewDocumentEnvironment{node}{}{
-  \par\addvspace{.5\baselineskip}
   \refstepcounter{node}
   \noindent
   \hspace{\DieudonneNodeIndent}\textbf{(\thenode)}\hspace{.3em}
