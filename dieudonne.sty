@@ -38,20 +38,10 @@
     \textbf{(#2#1#3)}
   }
 
-  \crefmultiformat{node}{
-    \textbf{(#2#1#3)}
-  }{
-    ~and~\textbf{(#2#1#3)}
-  }{
-    ,~\textbf{(#2#1#3)}
-  }{
-    ~and~\textbf{(#2#1#3)}
-  }
-  \crefrangeformat{node}{
-    \textbf{(#3#1#4)}
-    ~through
-    ~\textbf{(#5#2#6)}
-  }
+  \crefmultiformat{node}{\textbf{(#2#1#3)}}{~and~\textbf{(#2#1#3)}}{,~\textbf{(#2#1#3)}}{~and~\textbf{(#2#1#3)}}
+  \crefrangeformat{node}{\textbf{(#3#1#4)}~through~\textbf{(#5#2#6)}}
+
+  \crefrangemultiformat{node}{\textbf{(#3#1#4)}~through\textbf{(#5#2#6)}}{~and~\textbf{(#3#1#4)}~through~\textbf{(#5#2#6)}}{,~\textbf{(#3#1#4)}~through~\textbf{(#5#2#6)}}{~and~\textbf{(#3#1#4)}~through~\textbf{(#5#2#6)}}
   \crefname{node}{}{}
 } {}
 
@@ -102,19 +92,18 @@
   \setcounter{#1}{-1}
   \setcounter{dieudonne_#1_zero}{1}
 }
- 
-\setcounter{tocdepth}{30}
+
 \setcounter{secnumdepth}{30}
 
 
 
 
 \cs_new:Npn \dieudonne_fmt_num:nn #1 #2 {
-  \if_int_compare:w \value{#2}=0 
+  \if_int_compare:w \value{#2}=0
      \if_int_compare:w \value{dieudonne_#2_zero}=1
        #1{0}
      \fi
-  \else 
+  \else
     #1\arabic{#2}
   \fi
 }
@@ -170,10 +159,12 @@
 }
 
 
-\NewDocumentEnvironment{node}{}{
+\NewDocumentEnvironment{node}{o}{
   \refstepcounter{node}
   \noindent
+  \IfValueT{#1}{#1}
   \hspace{\DieudonneNodeIndent}\textbf{(\thenode)}\hspace{.3em}
+  \ignorespaces
 }{
   \par\addvspace{.5\baselineskip}
 }
