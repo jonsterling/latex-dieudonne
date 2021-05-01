@@ -22,3 +22,9 @@ formatting of node-level digits is customizable.
 It is recommended that theorem/lemma environments be declared to use the `node`
 counter. Equations under a node will have their numbers as suffixes of the node
 index, as in classic French books.
+
+
+## Demo file
+
+The demo (`main.tex`) requires the font garamondx to be installed; you can get
+it [here](https://www.tug.org/fonts/getnonfreefonts/).
